@@ -36,5 +36,7 @@ In this repository, `src\heuristic_coe_algo\huristic_algorithm_coe_wn.py` presen
 
 In addition to the heuristic algorithm, the implementation of max-agree and min-error versions of the exact CoE problems given in the follows: `src\exact_algos\exact_coe_max.py` (max-aggre) and `src\exact_algos\exact_coe_min.py` (min-error).
 
+For more definition of the problem and algorithms, please follow the referecne paper. 
+
 
 If you have any questions, feel free to email at dfwahid@gmail.com 
