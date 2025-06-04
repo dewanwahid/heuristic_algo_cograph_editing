@@ -1,15 +1,25 @@
+'''
+@project_name           - Heuristic Algorithm for Cograph Clustering
+@file_description       - Heuristic algorithm2
+@author                 - dewan wahid
+'''
+
+
 import random
 
-from src.model_dev.clustering.heuristic_algos.new_algo.cluster_integration_to_network2 import integrate_this_cluster_list2
-from src.model_dev.clustering.heuristic_algos.new_algo.cluster_merging_and_filtering import get_merged_clusters
-from src.model_dev.clustering.heuristic_algos.new_algo.keyword_clusters_from_result_dict import get_produced_clusters
-from src.model_dev.clustering.heuristic_algos.new_algo.p4_free_in_network import get_p4_free_link_cost_network2
-from src.model_dev.clustering.networkx_utils.importer import *
-from src.model_dev.clustering.exact_algos.exact_coe_max import coe_max_clustering_weighted
-from src.model_dev.clustering.exact_algos.exact_coe_min import coe_min_clustering_weighted
-from src.model_dev.clustering.heuristic_algos.new_algo.induced_network import *
-from src.model_dev.clustering.heuristic_algos.new_algo.node_prioritization import *
-from src.model_dev.clustering.heuristic_algos.new_algo.node_reindex_dictionary import *
+from src.networkx_utils.exporter import *
+from src.networkx_utils.importer import *
+from src.heuristic_coe_algo.cluster_merging_and_filtering import *
+from src.exact_algos.exact_ce_min import *
+from src.exact_algos.exact_coe_max import *
+from src.exact_algos.exact_coe_min import *
+from src.heuristic_coe_algo.cluster_integration_to_network2 import * 
+from src.heuristic_coe_algo.cluster_merging_and_filtering import *
+from src.heuristic_coe_algo.induced_network import *
+from src.heuristic_coe_algo.node_prioritization import *
+from src.heuristic_coe_algo.node_prioritization import *
+from src.heuristic_coe_algo.node_reindex_dictionary import *
+from src.heuristic_coe_algo.keyword_clusters_from_result_dict import *
 
 
 def get_clusters_using_coe_heuristic(G, model_thrd_this: int, c: int, algo_choice: str):

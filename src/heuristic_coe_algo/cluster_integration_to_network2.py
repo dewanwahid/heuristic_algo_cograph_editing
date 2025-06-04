@@ -1,6 +1,6 @@
 import networkx as nx
 
-from src.model_dev.clustering.networkx_utils.importer import *
+from src.networkx_utils.importer import *
 
 
 def integrate_this_cluster_list2(G_this,
@@ -81,8 +81,7 @@ def integrate_this_cluster_list2(G_this,
             w_ic: int = w_ic_pos - int((w_ic_pos * this_cls_len) / 12)
 
             # Add link (i,c_id) either in G or Gx based on weight
-            if w_ic > 0:
-                G_this.add_edge(c_id, i, weight=w_ic)
+            if w_ic > 0: G_this.add_edge(c_id, i, weight=w_ic)
             else: continue
 
             # Resetting weight
@@ -90,8 +89,7 @@ def integrate_this_cluster_list2(G_this,
 
         # Remove this cluster nodes from the network G and Gx and node prioritization list
         for k in this_cluster:
-            if k in G_this.nodes:
-                G_this.remove_node(k)
+            if k in G_this.nodes: G_this.remove_node(k)
             if k in vList_deg: vList_deg.remove(k)
     return G_this, c_id, cluster_id_dict2, vList_deg
 

@@ -1,6 +1,6 @@
 import networkx as nx
 
-from src.model_dev.clustering.networkx_utils.importer import *
+from src.networkx_utils.importer import *
 
 
 def integrate_this_cluster_list(G_this,
@@ -62,13 +62,10 @@ def integrate_this_cluster_list(G_this,
 
         # Unique neighbours of c in G and Gx together
         nbrs_c_GGx_uniq = list(dict.fromkeys(nbrs_c_GGx))
-        # print('Nbrs of C in GGx(unique):', nbrs_c_GGx_uniq)
 
         # Remove this cluster nodes from the neighbours list
         for k in this_cluster:
             if k in nbrs_c_GGx_uniq: nbrs_c_GGx_uniq.remove(k)
-
-        # print('\tNbrs of c in GGx (cleaned):', nbrs_c_GGx_uniq)
 
         # -----------------------------------------------------------------
         # Step 4(III): Remove link between this custer nodes and its neighbour node
@@ -86,48 +83,32 @@ def integrate_this_cluster_list(G_this,
 
                 # get link weight(s) from G
                 if G_this.has_edge(i, j):
-                    # weight of the link (i,j) in G
                     w_ij_pos = G_this.edges[i, j]['weight']
                     w_ic_pos = w_ic_pos + w_ij_pos
-                    # print('\t\tRemoving link from G: ', i, j, w_ij_pos)
 
                     # remove this link from G
                     e_pos = (i, j, {"weight": w_ij_pos})  # an edge with attribute data
                     G_this.remove_edge(*e_pos[:2])
-                    # print('\t\tRemoved link from G:', i, j, w_ij_pos)
 
                 # get link weight(s) from Gx
                 if Gx_this.has_edge(i, j):
-                    # weight of the link (i,j) in Gx
                     w_ij_neg = Gx_this.edges[i, j]['weight']
                     w_ic_neg = w_ic_neg + w_ij_neg
-                    # print('\t\tRemoving link from Gx: ', i, j, w_ij_neg)
 
                     # remove this link from Gx
                     e_neg = (i, j, {"weight": w_ij_neg})  # an edge with attribute data
                     Gx_this.remove_edge(*e_neg[:2])
-                    # print('\t\tRemoved link from Gx', i, j, w_ij_neg)
 
             # -----------------------------------------------------------------
             # Step 4(IV): Add link between this cluster and its nei
             # -----------------------------------------------------------------
             # Calculate link (c,i) weight
             w_ic: int = w_ic_pos - int(w_ic_neg /12)
-            # w_ic: int = w_ic_pos
-
-            # print('\tw_ij_pos:', w_ic_pos)
-            # print('\tw_ij_neg:', w_ic_neg)
-            # print('\tw_ic:', w_ic)
 
             # Add link (i,c_id) either in G or Gx based on weight
-            if w_ic > 0:
-                G_this.add_edge(c_id, i, weight=w_ic)
-                # print('\tAdded link in G: (', i, ',', c_id, ':', w_ic, ')')
-            elif w_ic < 0:
-                Gx_this.add_edge(c_id, i, weight=abs(w_ic))
-                # print('\tAdded link in Gx: (', i, ',', c_id, ':', abs(w_ic), ')')
-            else:
-                continue
+            if w_ic > 0: G_this.add_edge(c_id, i, weight=w_ic)
+            elif w_ic < 0: Gx_this.add_edge(c_id, i, weight=abs(w_ic))
+            else: continue
 
             # Resetting weight
             w_ic_pos = 0
@@ -135,28 +116,17 @@ def integrate_this_cluster_list(G_this,
 
         # Remove this cluster nodes from the network G and Gx and node prioritization list
         for k in this_cluster:
-            if k in G_this.nodes:
-                G_this.remove_node(k)
-                # print('\n\tRemoving node ', k, ' from G')
-            if k in Gx_this:
-                Gx_this.remove_node(k)
-                # print('\tRemoving node ', k, ' from Gx')
-
-            if k in vList_deg:
-                vList_deg.remove(k)
-
-        # Remove this cluster node from prioritization list
-        # print dictionary
-        # print("\nCurrent Dictionary: ", cluster_id_dict_this)
+            if k in G_this.nodes: G_this.remove_node(k)
+            if k in Gx_this: Gx_this.remove_node(k)
+            if k in vList_deg: vList_deg.remove(k)
 
     return G_this, Gx_this, c_id, cluster_id_dict2, vList_deg
 
 
 if __name__ == '__main__':
     # Network path
-    g_net_path = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data/test_net_id_06.csv'
-    gx_net_path = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data' \
-                  '/test_net_id_06_p4_free_link_net.csv '
+    g_net_path = 'test_net.csv'
+    gx_net_path = 'complement_net.csv '
 
     # Read network and its complement network
     G = networkx_read_weighted_network_from_csv(g_net_path)
@@ -164,7 +134,6 @@ if __name__ == '__main__':
 
     # Node partition
     P_min_act = [[1, 2, 3], [5, 6], [7, 8]]
-
     vList_deg = [2, 3, 1, 6, 5, 8, 7]
 
     # Cluster id starts from

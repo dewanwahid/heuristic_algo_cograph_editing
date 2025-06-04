@@ -4,8 +4,8 @@
 @author         - dewan wahid
 """
 
-from src.model_dev.clustering.heuristic_algos.new_algo.dict_utils import *
 
+from src.heuristic_coe_algo.dict_utils import *
 
 # -----------------------------------------------------------------
 # Get new index for node list starts from 1, 2, ....

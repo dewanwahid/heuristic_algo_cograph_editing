@@ -10,8 +10,8 @@
 import networkx as nx
 import pandas as pd
 import math
-from src.model_dev.clustering.networkx_utils.exporter import *
-from src.model_dev.clustering.networkx_utils.importer import networkx_read_weighted_network_from_csv
+from src.networkx_utils.exporter import *
+from src.networkx_utils.importer import *
 
 
 # ---------------------------
@@ -154,7 +154,7 @@ def get_p4_free_link_cost_network2(G):
 
 if __name__ == '__main__':
     # Network path
-    net_path = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data/test_net_id_04.csv'
+    net_path = 'test_net.csv'
 
     # Read network and its complement network
     G = networkx_read_weighted_network_from_csv(net_path)

@@ -5,10 +5,12 @@
 '''
 
 from docplex.mp.model import Model
-from src.model_dev.clustering.heuristic_algos.new_algo import partitioning
-from src.model_dev.clustering.heuristic_algos.new_algo.cluster_merging_and_filtering import get_merged_clusters
-from src.model_dev.clustering.heuristic_algos.new_algo.p4_free_in_network import get_p4_free_link_cost_network2
-from src.model_dev.clustering.networkx_utils.importer import *
+from src.heuristic_coe_algo.partitioning import *
+from src.heuristic_coe_algo.cluster_merging_and_filtering import *
+from src.heuristic_coe_algo.p4_free_in_network import *
+from src.networkx_utils.importer import *
+from src.networkx_utils.exporter import *
+
 
 
 def coe_min_clustering_weighted(G, Gx):
@@ -107,12 +109,12 @@ def coe_min_clustering_weighted(G, Gx):
                     S = []
                     S.append(i)
                     S.append(j)
-                    P = partitioning.get_partitions(P, S)
+                    P = get_partitions(P, S)
 
     # Merging any two partitions that have common element(s)
     P_final: list = []
     for L in P:
-        P_final = partitioning.get_partitions(P_final, L)
+        P_final = get_partitions(P_final, L)
 
     # Add objective value to P
     # P_final.append(solution.get_objective_value())
@@ -122,7 +124,7 @@ def coe_min_clustering_weighted(G, Gx):
 
 if __name__ == '__main__':
     # Network path
-    net_path = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data/test_net_id_08.csv'
+    net_path = 'test_net.csv'
 
     # Read network and its complement network
     G = networkx_read_weighted_network_from_csv(net_path)

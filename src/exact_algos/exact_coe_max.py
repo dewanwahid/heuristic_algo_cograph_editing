@@ -6,8 +6,9 @@
 
 
 from docplex.mp.model import Model
-from src.model_dev.clustering.heuristic_algos.new_algo import partitioning
-from src.model_dev.clustering.exact_algos import *
+from src.heuristic_coe_algo.partitioning import *
+from src.exact_algos import *
+from src.networkx_utils.importer import *
 
 
 def coe_max_clustering_weighted(G, Gx):
@@ -106,13 +107,13 @@ def coe_max_clustering_weighted(G, Gx):
                     S = []
                     S.append(i)
                     S.append(j)
-                    P = partitioning.get_partitions(P, S)
+                    P = get_partitions(P, S)
 
     # Merging any two partitions that have common element(s)
     P_final: list = []
 
     for L in P:
-        P_final = partitioning.get_partitions(P_final, L)
+        P_final = get_partitions(P_final, L)
 
     # Add objective value to P
     # P_final.append(solution.get_objective_value())
@@ -122,9 +123,8 @@ def coe_max_clustering_weighted(G, Gx):
 
 if __name__ == '__main__':
     # Network path
-    net_path = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data/test_net_id_04.csv'
-    net_path_p2 = 'C:/Users/shaki/PycharmProjects/invoice_categorization/data/test_data' \
-                  '/test_net_id_04_p4_free_link_net.csv '
+    net_path = 'test_net.csv'
+    net_path_p2 = 'complement_net.csv '
 
     # Read network and its complement network
     G = networkx_read_weighted_network_from_csv(net_path)

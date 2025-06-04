@@ -1,13 +1,25 @@
+'''
+@project_name           - Heuristic Algorithm for Cograph Clustering
+@file_description       - Heuristic algorithm
+@author                 - dewan wahid
+'''
+
+
 import random
 
-from src.model_dev.clustering.heuristic_algos.new_algo.cluster_merging_and_filtering import get_merged_clusters
-from src.model_dev.clustering.networkx_utils.importer import *
-from src.model_dev.clustering.exact_algos.exact_coe_max import coe_max_clustering_weighted
-from src.model_dev.clustering.exact_algos.exact_coe_min import coe_min_clustering_weighted
-from src.model_dev.clustering.heuristic_algos.new_algo.cluster_integration_to_network import integrate_this_cluster_list
-from src.model_dev.clustering.heuristic_algos.new_algo.induced_network import *
-from src.model_dev.clustering.heuristic_algos.new_algo.node_prioritization import get_degree_node_list_ascending
-from src.model_dev.clustering.heuristic_algos.new_algo.node_reindex_dictionary import *
+from src.networkx_utils.exporter import *
+from src.networkx_utils.importer import *
+from src.heuristic_coe_algo.cluster_merging_and_filtering import *
+from src.exact_algos.exact_ce_min import *
+from src.exact_algos.exact_coe_max import *
+from src.exact_algos.exact_coe_min import *
+from src.heuristic_coe_algo.cluster_integration_to_network import * 
+from src.heuristic_coe_algo.cluster_merging_and_filtering import *
+from src.heuristic_coe_algo.induced_network import *
+from src.heuristic_coe_algo.node_prioritization import *
+from src.heuristic_coe_algo.node_prioritization import *
+from src.heuristic_coe_algo.node_reindex_dictionary import *
+
 
 
 def get_clusters_using_coe_heuristic(G, Gx, model_thrd: int, c: int, algo_choice: str):
@@ -36,8 +48,7 @@ def get_clusters_using_coe_heuristic(G, Gx, model_thrd: int, c: int, algo_choice
         # Check the model threshold for the
         v_nbrs_size: int = len(v_nbrs)
 
-        if v_nbrs_size > model_thrd2:
-            v_nbrs = random.choices(v_nbrs, k=model_thrd2)
+        if v_nbrs_size > model_thrd2: v_nbrs = random.choices(v_nbrs, k=model_thrd2)
 
         # Add node v to its neighbour set
         v_nbrs.append(v)
