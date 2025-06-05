@@ -124,7 +124,7 @@ def coe_min_clustering_weighted(G, Gx):
 
 if __name__ == '__main__':
     # Network path
-    net_path = 'test_net.csv'
+    net_path = 'test_data/test_net_id.csv'
 
     # Read network and its complement network
     G = networkx_read_weighted_network_from_csv(net_path)

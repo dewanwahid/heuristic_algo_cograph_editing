@@ -36,13 +36,13 @@ def get_produced_clusters(result_dict, key_id_input_path: str, keyword_cluster_o
 
 if __name__ == '__main__':
     # keyword id dicti
-    key_id_path = ''
+    key_id_path = 'test_data/test_net_id.csv'
 
     # output path
     output_path = ''
 
     # Final dictionary output
-    final_dict: dict = {100001: [5, 7, 6, 8, 12], 100007: [10, 9, 2, 1, 4, 3, 15, 16, 17, 11, 13, 14, 18]}
+    final_dict: dict = {100001: [1, 2, 3, 4], 100002: [5, 6]}
 
     # get keywords clusters
     get_produced_clusters(final_dict, key_id_path, output_path)
